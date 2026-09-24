@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+<BaseLayout>
+  <section class="container hero">
+    <p class="eyebrow muted">Cada pieza es única</p>
+    <h1>Accesorios pintados a mano y deco para tu casa</h1>
+    <div class="ctas">
+      <a class="btn" href={url('/accesorios/')}>Ver Accesorios</a>
+      <a class="btn btn--secondary" href={url('/home/')}>Ver Home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-16); display: grid; gap: var(--space-4); max-width: 48rem; margin-inline: 0; }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+</style>

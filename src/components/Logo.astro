@@ -1,0 +1,17 @@
+---
+// Placeholder hasta tener el logo definitivo.
+// Para reemplazarlo: poner el SVG/PNG en src/assets/ y renderizarlo acá (mantener el aria-label).
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<span class:list={['logo', className]} aria-label="Chacha">chacha</span>
+
+<style>
+  .logo {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+</style>

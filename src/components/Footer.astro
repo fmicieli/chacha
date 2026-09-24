@@ -1,0 +1,64 @@
+---
+import Logo from './Logo.astro';
+import { NAV_LINKS } from '../lib/nav';
+import { url } from '../lib/url';
+import { site, whatsappLink } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container grid">
+    <div class="brand">
+      <a href={url('/')} class="logo-link" aria-label="Chacha, ir al inicio"><Logo /></a>
+      <p class="muted">Cada pieza es única.</p>
+    </div>
+
+    <nav aria-label="Pie de página">
+      <ul>
+        <li><a href={url('/')}>Inicio</a></li>
+        {NAV_LINKS.map(({ href, label }) => <li><a href={url(href)}>{label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="contact">
+      <a class="btn" href={whatsappLink('¡Hola! Tengo una consulta.')} target="_blank" rel="noopener">
+        Escribinos por WhatsApp
+      </a>
+      <a class="ig" href={site.instagram_url} target="_blank" rel="noopener">Seguinos en Instagram</a>
+    </div>
+  </div>
+
+  <div class="container legal muted">
+    <p>{site.zona_entrega} · Envíos y retiros en Mercedes</p>
+    <p>© {year} Chacha</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-16);
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-12) var(--space-8);
+  }
+  .grid { display: grid; gap: var(--space-8); }
+  .logo-link { display: inline-flex; min-height: var(--tap); align-items: center; text-decoration: none; }
+  .brand p { margin-top: var(--space-2); }
+  ul { list-style: none; padding: 0; display: grid; gap: var(--space-1); }
+  nav a { display: inline-flex; align-items: center; min-height: var(--tap); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  .contact { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .ig { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-meta);
+  }
+  @media (min-width: 48rem) {
+    .grid { grid-template-columns: 2fr 1fr 1.5fr; }
+  }
+</style>

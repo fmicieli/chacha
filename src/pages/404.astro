@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+<BaseLayout title="Página no encontrada" noindex>
+  <section class="container nf">
+    <p class="eyebrow muted">Error 404</p>
+    <h1>No encontramos esta página</h1>
+    <p>Puede que el producto ya no esté o que el link tenga un error. Mirá lo que tenemos en Accesorios y Home.</p>
+    <div class="ctas">
+      <a class="btn" href={url('/accesorios/')}>Ver Accesorios</a>
+      <a class="btn btn--secondary" href={url('/home/')}>Ver Home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { padding-block: var(--space-16); display: grid; gap: var(--space-4); max-width: 40rem; margin-inline: 0; }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+</style>
