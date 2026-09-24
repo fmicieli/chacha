@@ -92,6 +92,8 @@ const paginas = defineCollection({
   schema: ({ image }) =>
     z.object({
       titulo: z.string().min(1),
+      // Bajada corta para el bloque "Sobre nosotras" de Inicio (2 o 3 líneas).
+      resumen: z.string().optional(),
       fotos: z
         .array(z.object({ imagen: image(), alt: z.string().min(1) }))
         .max(2, 'Máximo 2 fotos')

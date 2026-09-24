@@ -10,6 +10,15 @@ npm run dev      # http://localhost:4321/chacha/
 npm run build    # genera dist/
 ```
 
+### Si el servidor de desarrollo muestra datos viejos
+
+Después de cambiar `src/content.config.ts` (el schema), pará el servidor, borrá la
+caché y volvé a arrancar:
+
+```bash
+rm -rf .astro node_modules/.astro && npm run dev
+```
+
 ## Deploy
 
 Cada push a `main` corre `.github/workflows/deploy.yml` y publica en

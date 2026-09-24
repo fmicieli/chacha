@@ -1,0 +1,47 @@
+---
+/**
+ * Grilla curada de Instagram (editable desde el CMS).
+ * Para pasar a un feed en vivo (Behold, SnapWidget, etc.), reemplazar el contenido de
+ * este componente por el embed del widget: el resto de la página no cambia.
+ */
+import { Image } from 'astro:assets';
+import type { Site } from '../lib/site';
+
+interface Props { items: Site['instagram_grid']; perfil: string }
+const { items, perfil } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="container ig" aria-labelledby="ig-title">
+    <div class="head">
+      <h2 id="ig-title" class="section-title">Seguinos en Instagram</h2>
+      <a class="btn btn--secondary" href={perfil} target="_blank" rel="noopener">Ver perfil</a>
+    </div>
+    <ul class="grid" role="list">
+      {items.map((it) => (
+        <li>
+          <a href={it.link} target="_blank" rel="noopener" aria-label={`${it.alt} (se abre en Instagram)`}>
+            <Image src={it.imagen} alt="" widths={[240, 360, 480]} sizes="(min-width: 64rem) 16vw, 33vw" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .ig { display: grid; gap: var(--space-6); }
+  .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .grid a { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--color-surface); }
+  .grid img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s; }
+  .grid a:hover img { opacity: 0.85; }
+  @media (min-width: 64rem) {
+    .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-3); }
+  }
+</style>

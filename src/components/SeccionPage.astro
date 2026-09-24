@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductGrid from './ProductGrid.astro';
+import { SECCIONES, type Seccion } from '../lib/catalogo';
+import { getSeccionAgrupada } from '../lib/productos';
+import { getSite } from '../lib/site';
+import { url } from '../lib/url';
+
+interface Props { seccion: Seccion }
+const { seccion } = Astro.props;
+
+const site = await getSite();
+const { label } = SECCIONES[seccion];
+const bajada = seccion === 'accesorios' ? site.bajada_accesorios : site.bajada_home;
+const grupos = await getSeccionAgrupada(seccion);
+---
+<BaseLayout title={label} description={bajada}>
+  <header class="container page-head">
+    <h1>{label}</h1>
+    <p class="lede">{bajada}</p>
+    {grupos.length > 1 && (
+      <nav aria-label={`Subcategorías de ${label}`}>
+        <ul class="chips" role="list">
+          {grupos.map((g) => <li><a href={`#${g.id}`}>{g.label}</a></li>)}
+        </ul>
+      </nav>
+    )}
+  </header>
+
+  {grupos.length === 0 ? (
+    <section class="container empty">
+      <p>Estamos preparando piezas nuevas para esta sección. Mientras tanto, mirá lo que tenemos en <a href={url(seccion === 'home' ? '/accesorios/' : '/home/')}>{seccion === 'home' ? 'Accesorios' : 'Home'}</a>.</p>
+    </section>
+  ) : (
+    grupos.map((g, i) => (
+      <section class="container group" id={g.id} aria-labelledby={`${g.id}-title`}>
+        <h2 id={`${g.id}-title`} class="group-title">{g.label}</h2>
+        <ProductGrid productos={g.productos} priorityFirst={i === 0} />
+      </section>
+    ))
+  )}
+</BaseLayout>
+
+<style>
+  .chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+  .chips a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .chips a:hover { border-color: var(--color-text); color: var(--color-text); }
+  .group { padding-block: var(--space-8); border-top: 1px solid var(--color-border); }
+  .group:first-of-type { border-top: 0; padding-top: var(--space-4); }
+  .group-title {
+    margin-bottom: var(--space-6);
+    font-size: var(--fs-h2);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+  }
+  .empty { padding-block: var(--space-8); }
+</style>

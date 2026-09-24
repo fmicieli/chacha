@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { SECCIONES, subcategoriasDe, labelSubcategoria, type Seccion, type Subcategoria } from './catalogo';
+import { subcategoriasDe, labelSubcategoria, type Seccion, type Subcategoria } from './catalogo';
 
 export type Producto = CollectionEntry<'productos'>['data'];
 
@@ -64,6 +64,3 @@ export async function getRelacionados(producto: Producto, limite = 4): Promise<P
   return [...misma, ...seccion].slice(0, limite);
 }
 
-export function etiquetaDe(producto: Producto): string {
-  return SECCIONES[producto.seccion].etiqueta;
-}

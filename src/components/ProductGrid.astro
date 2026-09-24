@@ -1,0 +1,32 @@
+---
+import ProductCard from './ProductCard.astro';
+import type { Producto } from '../lib/productos';
+
+interface Props {
+  productos: Producto[];
+  /** Marca la primera card como prioritaria (above the fold). */
+  priorityFirst?: boolean;
+}
+const { productos, priorityFirst = false } = Astro.props;
+---
+<ul class="grid" role="list">
+  {productos.map((p, i) => (
+    <li><ProductCard producto={p} priority={priorityFirst && i === 0} /></li>
+  ))}
+</ul>
+
+<style>
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8) var(--space-3);
+  }
+  @media (min-width: 40rem) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8) var(--space-4); }
+  }
+  @media (min-width: 64rem) {
+    .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-12) var(--space-6); }
+  }
+</style>

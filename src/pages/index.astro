@@ -1,19 +1,129 @@
 ---
+import { Image, getImage } from 'astro:assets';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import InstagramGrid from '../components/InstagramGrid.astro';
+import { getSite } from '../lib/site';
+import { getNovedades, getProductos } from '../lib/productos';
 import { url } from '../lib/url';
+
+const site = await getSite();
+const novedades = await getNovedades(8);
+const og = await getImage({ src: site.hero.imagen, width: 1200, format: 'jpg' });
+const sobre = await getEntry('paginas', 'sobre-nosotras');
+
+// Si no hay imagen de sección cargada, se usa la foto del producto más nuevo de esa sección.
+const todos = await getProductos();
+const fotoDe = (seccion: 'accesorios' | 'home') => todos.find((p) => p.seccion === seccion)?.fotos[0];
+const tarjetas = [
+  {
+    href: '/accesorios/',
+    label: 'Accesorios',
+    bajada: site.bajada_accesorios,
+    imagen: site.imagen_accesorios ?? fotoDe('accesorios')?.imagen,
+  },
+  { href: '/home/', label: 'Home', bajada: site.bajada_home, imagen: site.imagen_home ?? fotoDe('home')?.imagen },
+];
 ---
-<BaseLayout>
-  <section class="container hero">
-    <p class="eyebrow muted">Cada pieza es única</p>
-    <h1>Accesorios pintados a mano y deco para tu casa</h1>
-    <div class="ctas">
-      <a class="btn" href={url('/accesorios/')}>Ver Accesorios</a>
-      <a class="btn btn--secondary" href={url('/home/')}>Ver Home</a>
+<BaseLayout image={og.src} imageAlt={site.hero.alt}>
+  <section class="hero container">
+    <div class="hero-text">
+      <p class="eyebrow muted">Cada pieza es única</p>
+      <h1>{site.hero.titulo}</h1>
+      {site.hero.subtitulo && <p class="lede">{site.hero.subtitulo}</p>}
+      <div class="ctas">
+        <a class="btn" href={url('/accesorios/')}>Ver Accesorios</a>
+        <a class="btn btn--secondary" href={url('/home/')}>Ver Home</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <Image src={site.hero.imagen} alt={site.hero.alt} widths={[640, 960, 1280, 1600]} sizes="(min-width: 48rem) 58vw, 100vw" priority />
     </div>
   </section>
+
+  <section class="container section" aria-label="Secciones">
+    <ul class="secciones" role="list">
+      {tarjetas.map((t) => (
+        <li>
+          <a class="seccion-card" href={url(t.href)}>
+            <div class="seccion-media">
+              {t.imagen && <Image src={t.imagen} alt="" widths={[480, 720, 960]} sizes="(min-width: 48rem) 50vw, 100vw" />}
+            </div>
+            <h2>{t.label} <span aria-hidden="true">→</span></h2>
+            <p class="muted">{t.bajada}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {novedades.length > 0 && (
+    <section class="container section novedades" aria-labelledby="nov-title">
+      <h2 id="nov-title" class="section-title">Novedades</h2>
+      <ProductGrid productos={novedades} />
+    </section>
+  )}
+
+  {sobre && (
+    <section class="container section about" aria-labelledby="about-title">
+      <h2 id="about-title" class="section-title">Sobre nosotras</h2>
+      {sobre.data.resumen && <p class="about-text">{sobre.data.resumen}</p>}
+      <a href={url('/sobre-nosotras/')}>Conocé nuestra historia</a>
+    </section>
+  )}
+
+  <div class="section">
+    <InstagramGrid items={site.instagram_grid} perfil={site.instagram_url} />
+  </div>
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--space-16); display: grid; gap: var(--space-4); max-width: 48rem; margin-inline: 0; }
-  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); }
+  .hero {
+    display: grid;
+    gap: var(--space-8);
+    padding-top: var(--space-6);
+  }
+  .hero-text { display: grid; gap: var(--space-4); align-content: center; }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+  .hero-media {
+    order: -1;
+    aspect-ratio: 4 / 3;
+    background: var(--color-surface);
+    overflow: hidden;
+    margin-inline: calc(var(--gutter) * -1);
+  }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; }
+
+  .secciones {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-8);
+  }
+  .seccion-card { display: grid; gap: var(--space-2); text-decoration: none; color: var(--color-text); }
+  .seccion-media { aspect-ratio: 4 / 5; background: var(--color-surface); overflow: hidden; margin-bottom: var(--space-2); }
+  .seccion-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .seccion-card:hover img { transform: scale(1.02); }
+  }
+  .seccion-card h2 { text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+  .seccion-card:hover h2 { color: var(--color-accent); }
+
+  .novedades h2 { margin-bottom: var(--space-6); }
+
+  .about {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    border-block: 1px solid var(--color-border);
+  }
+  .about-text { font-size: var(--fs-h2); line-height: 1.4; max-width: 40rem; }
+  .about a { display: inline-flex; align-items: center; min-height: var(--tap); font-weight: 600; }
+
+  @media (min-width: 48rem) {
+    .hero { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; padding-top: var(--space-8); }
+    .hero-media { order: 0; margin-inline: 0; }
+    .secciones { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  }
 </style>

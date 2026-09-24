@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import type { Producto } from '../lib/productos';
+import { formatPrecio } from '../lib/format';
+import { url } from '../lib/url';
+
+interface Props {
+  producto: Producto;
+  /** true solo para la primera card visible de la página (carga sin lazy). */
+  priority?: boolean;
+}
+
+const { producto, priority = false } = Astro.props;
+const foto = producto.fotos[0];
+const vendido = producto.estado === 'vendido';
+---
+<article class:list={['card', { vendido }]}>
+  <a href={url(`/producto/${producto.slug}/`)} class="link">
+    <div class="media">
+      <Image
+        src={foto.imagen}
+        alt={foto.alt}
+        widths={[320, 480, 640, 800]}
+        sizes="(min-width: 80rem) 19rem, (min-width: 64rem) 23vw, (min-width: 40rem) 31vw, 47vw"
+        priority={priority}
+      />
+      {vendido && <span class="badge">Vendido</span>}
+    </div>
+    <h3 class="name">{producto.nombre}</h3>
+    <p class="price">{formatPrecio(producto.precio)}</p>
+  </a>
+</article>
+
+<style>
+  .link {
+    display: grid;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--color-surface);
+    margin-bottom: var(--space-2);
+  }
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .link:hover img { transform: scale(1.03); }
+  }
+  .link:hover .name { text-decoration: underline; text-underline-offset: 0.2em; }
+  .name { font-size: var(--fs-h3); font-weight: 600; }
+  .price { font-weight: 700; }
+
+  .badge {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    padding: 2px var(--space-2);
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: var(--fs-meta);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    border-radius: var(--radius);
+  }
+  .vendido img { opacity: 0.6; filter: grayscale(0.6); }
+  .vendido .price { color: var(--color-muted); }
+</style>

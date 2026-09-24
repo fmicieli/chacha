@@ -1,5 +1,6 @@
 ---
 titulo: Sobre nosotras
+resumen: "[TEXTO A COMPLETAR] Somos madre e hija y hacemos piezas únicas en Mercedes: accesorios pintados a mano y deco elegida una por una."
 fotos:
   - imagen: ../../assets/paginas/sobre-nosotras-1.jpg
     alt: "[TEXTO A COMPLETAR] Describir la foto, ej.: Madre e hija pintando abanicos en el taller"
