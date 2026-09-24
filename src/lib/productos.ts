@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { subcategoriasDe, labelSubcategoria, type Seccion, type Subcategoria } from './catalogo';
+import { subcategoriasDe, labelSubcategoria, seccionDe, type Seccion, type Subcategoria } from './catalogo';
 
-export type Producto = CollectionEntry<'productos'>['data'];
+export type Producto = CollectionEntry<'productos'>['data'] & { slug: string; seccion: Seccion };
 
 const porFechaDesc = (a: Producto, b: Producto) => b.fecha_alta.getTime() - a.fecha_alta.getTime();
 /** Disponibles primero (más nuevos primero), después vendidos. */
@@ -10,21 +10,13 @@ const disponiblesPrimero = (a: Producto, b: Producto) =>
 
 let cache: Producto[] | undefined;
 
-/** Todos los productos, validando que no haya slugs repetidos. */
+/** Todos los productos, con `slug` (del nombre de archivo) y `seccion` (de la subcategoría). */
 export async function getProductos(): Promise<Producto[]> {
   if (cache) return cache;
   const entries = await getCollection('productos');
-  const vistos = new Map<string, string>();
-  for (const { id, data } of entries) {
-    const otro = vistos.get(data.slug);
-    if (otro) {
-      throw new Error(
-        `[chacha] Hay dos productos con el mismo slug "${data.slug}" (${otro} y ${id}). Cambiá uno de los dos.`,
-      );
-    }
-    vistos.set(data.slug, id);
-  }
-  cache = entries.map((e) => e.data).sort(disponiblesPrimero);
+  cache = entries
+    .map(({ id, data }) => ({ ...data, slug: id, seccion: seccionDe(data.subcategoria) }))
+    .sort(disponiblesPrimero);
   return cache;
 }
 

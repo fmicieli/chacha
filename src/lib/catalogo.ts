@@ -36,6 +36,11 @@ export function subcategoriasDe(seccion: Seccion): Subcategoria[] {
   return Object.keys(SECCIONES[seccion].subcategorias) as Subcategoria[];
 }
 
+/** Cada subcategoría pertenece a una sola sección: la sección se deduce de acá. */
+export function seccionDe(sub: Subcategoria): Seccion {
+  return SECCION_IDS.find((s) => sub in SECCIONES[s].subcategorias)!;
+}
+
 export function labelSubcategoria(seccion: Seccion, sub: Subcategoria): string {
   return (SECCIONES[seccion].subcategorias as Record<string, string>)[sub] ?? sub;
 }

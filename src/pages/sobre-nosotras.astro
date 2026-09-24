@@ -8,7 +8,7 @@ if (!pagina) throw new Error('[chacha] Falta src/content/paginas/sobre-nosotras.
 const { Content } = await render(pagina);
 const { titulo, resumen, fotos } = pagina.data;
 ---
-<BaseLayout title={titulo} description={resumen}>
+<BaseLayout title={titulo} description={resumen ?? undefined}>
   <article class="container about">
     <header class="page-head">
       <h1>{titulo}</h1>

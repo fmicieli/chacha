@@ -1,0 +1,286 @@
+# Configuración de Pages CMS (https://pagescms.org)
+# Panel: https://app.pagescms.org → entrar con GitHub → elegir el repo "chacha".
+#
+# Las rutas de imágenes se guardan relativas al archivo de contenido
+# (ej. "../../assets/productos/foto.jpg") para que Astro las optimice.
+# Si cambian las subcategorías, actualizar también src/lib/catalogo.ts.
+
+media:
+  - name: productos
+    label: Fotos de productos
+    input: src/assets/productos
+    output: ../../assets/productos
+    extensions: [jpg, jpeg, png, webp]
+    rename: random
+  - name: sitio
+    label: Fotos del sitio
+    input: src/assets/sitio
+    output: ../../assets/sitio
+    extensions: [jpg, jpeg, png, webp]
+    rename: random
+  - name: paginas
+    label: Fotos de Sobre nosotras
+    input: src/assets/paginas
+    output: ../../assets/paginas
+    extensions: [jpg, jpeg, png, webp]
+    rename: random
+
+settings:
+  commit:
+    templates:
+      create: "Crear {path} (desde Pages CMS)"
+      update: "Actualizar {path} (desde Pages CMS)"
+      delete: "Eliminar {path} (desde Pages CMS)"
+      rename: "Renombrar {oldPath} a {newPath} (desde Pages CMS)"
+
+content:
+  - name: productos
+    label: Productos
+    type: collection
+    path: src/content/productos
+    format: json
+    # El nombre del archivo define la dirección web del producto (ej. /producto/abanico-jardin/).
+    filename:
+      template: "{primary}.json"
+      field: false
+    view:
+      primary: nombre
+      fields: [nombre, subcategoria, precio, estado]
+      sort: [fecha_alta, nombre, precio]
+      search: [nombre]
+      default:
+        sort: fecha_alta
+        order: desc
+    fields:
+      - name: nombre
+        label: Nombre del producto
+        type: string
+        required: true
+        description: "Ej: Abanico Jardín de Naranjos. Al crear el producto, esto también arma la dirección web."
+      - name: subcategoria
+        label: ¿Qué es?
+        type: select
+        required: true
+        description: La sección (Accesorios o Home) se elige sola según esto.
+        options:
+          placeholder: Elegí una opción
+          values:
+            - name: abanicos
+              label: Abanico (Accesorios)
+            - name: tote-bags
+              label: Tote bag (Accesorios)
+            - name: fundas
+              label: Funda de almohadón (Home)
+            - name: caminos
+              label: Camino de mesa (Home)
+            - name: posavasos
+              label: Posavasos (Home)
+      - name: precio
+        label: Precio en pesos
+        type: number
+        required: true
+        description: "Solo números, sin puntos ni signo $. Ej: 25000"
+        options:
+          min: 1
+      - name: estado
+        label: ¿Está disponible?
+        type: select
+        required: true
+        default: disponible
+        description: Si se vendió, elegí "Vendido". El producto sigue en la web con la etiqueta Vendido.
+        options:
+          values:
+            - name: disponible
+              label: Disponible
+            - name: vendido
+              label: Vendido
+      - name: fotos
+        label: Fotos (de 1 a 3)
+        type: object
+        required: true
+        description: La primera es la principal. Fotos verticales, con buena luz.
+        list:
+          min: 1
+          max: 3
+          collapsible:
+            collapsed: false
+            summary: "Foto {index}: {alt}"
+        fields:
+          - name: imagen
+            label: Foto
+            type: image
+            required: true
+            options:
+              media: productos
+          - name: alt
+            label: ¿Qué se ve en la foto?
+            type: string
+            required: true
+            description: "Una frase corta para quienes no pueden ver la imagen. Ej: Abanico abierto con naranjas pintadas sobre fondo blanco"
+      - name: descripcion
+        label: Descripción
+        type: text
+        required: true
+        description: De 1 a 3 frases.
+      - name: medidas
+        label: Medidas
+        type: string
+        required: true
+        description: "Ej: 45 x 45 cm · o · Set de 4 · 10 cm de diámetro"
+      - name: material
+        label: Material
+        type: string
+        required: true
+        description: "Ej: Lino lavado"
+      - name: fecha_alta
+        label: Fecha de carga
+        type: date
+        required: true
+        description: Se completa sola con la fecha de hoy. Ordena las Novedades.
+        options:
+          format: yyyy-MM-dd
+      - name: destacado
+        label: ¿Mostrarlo primero en Novedades?
+        type: boolean
+        default: false
+
+  - name: sitio
+    label: Configuración del sitio
+    type: file
+    path: src/content/config/sitio.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: whatsapp
+        label: Número de WhatsApp
+        type: string
+        required: true
+        description: "Con código de país y sin +, espacios ni guiones. Ej: 5492324123456 (54 + 9 + código de área sin 0 + número sin 15)"
+        pattern:
+          regex: "^(549X+|[0-9]{10,15})$"
+          message: "Solo números, entre 10 y 15. Ej: 5492324123456"
+      - name: instagram_url
+        label: Link de Instagram
+        type: string
+        required: true
+        description: "Ej: https://instagram.com/chacha"
+        pattern:
+          regex: "^https?://.+"
+          message: "Tiene que empezar con https://"
+      - name: zona_entrega
+        label: Zona
+        type: string
+        required: true
+      - name: texto_entregas
+        label: Texto sobre entregas
+        type: text
+        required: true
+      - name: hero
+        label: Portada (Inicio)
+        type: object
+        required: true
+        fields:
+          - name: titulo
+            label: Título
+            type: string
+            required: true
+          - name: subtitulo
+            label: Subtítulo
+            type: string
+          - name: imagen
+            label: Imagen de portada
+            type: image
+            required: true
+            description: Horizontal, al menos 1600 px de ancho.
+            options:
+              media: sitio
+          - name: alt
+            label: ¿Qué se ve en la imagen?
+            type: string
+            required: true
+      - name: bajada_accesorios
+        label: Texto de la sección Accesorios
+        type: text
+        required: true
+      - name: bajada_home
+        label: Texto de la sección Home
+        type: text
+        required: true
+      - name: imagen_accesorios
+        label: Foto de la tarjeta Accesorios (Inicio)
+        type: image
+        description: Vertical. Si la dejás vacía, se usa la foto del producto más nuevo.
+        options:
+          media: sitio
+      - name: imagen_home
+        label: Foto de la tarjeta Home (Inicio)
+        type: image
+        description: Vertical. Si la dejás vacía, se usa la foto del producto más nuevo.
+        options:
+          media: sitio
+      - name: instagram_grid
+        label: Grilla de Instagram (hasta 6)
+        type: object
+        list:
+          max: 6
+          collapsible:
+            collapsed: true
+            summary: "Posteo {index}"
+        fields:
+          - name: imagen
+            label: Foto
+            type: image
+            required: true
+            options:
+              media: sitio
+          - name: link
+            label: Link al posteo
+            type: string
+            required: true
+            pattern:
+              regex: "^https?://.+"
+              message: "Tiene que empezar con https://"
+          - name: alt
+            label: ¿Qué se ve en la foto?
+            type: string
+
+  - name: sobre-nosotras
+    label: Sobre nosotras
+    type: file
+    path: src/content/paginas/sobre-nosotras.md
+    format: yaml-frontmatter
+    operations:
+      delete: false
+    fields:
+      - name: titulo
+        label: Título
+        type: string
+        required: true
+      - name: resumen
+        label: Resumen para Inicio
+        type: text
+        description: 2 o 3 líneas que aparecen en la página de Inicio.
+      - name: fotos
+        label: Fotos (hasta 2)
+        type: object
+        list:
+          max: 2
+          collapsible: false
+        fields:
+          - name: imagen
+            label: Foto
+            type: image
+            required: true
+            options:
+              media: paginas
+          - name: alt
+            label: ¿Qué se ve en la foto?
+            type: string
+            required: true
+      - name: body
+        label: Texto
+        type: rich-text
+        options:
+          format: markdown
+          media: false
