@@ -117,3 +117,10 @@ a:hover { color: var(--color-accent); }
 .prose > * + * { margin-top: var(--space-4); }
 .prose h2, .prose h3 { margin-top: var(--space-8); }
 .prose ul, .prose ol { padding-left: 1.25em; }
+.btn--done[disabled] {
+  opacity: 1;
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  cursor: default;
+}

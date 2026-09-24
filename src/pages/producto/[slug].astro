@@ -31,6 +31,7 @@ const consulta = whatsappLink(site.whatsapp, `¡Hola! Quiero consultar por ${pro
 
 // Imagen para compartir (WhatsApp/Instagram leen og:image): JPG de 1200px.
 const og = await getImage({ src: producto.fotos[0].imagen, width: 1200, format: 'jpg' });
+const thumb = await getImage({ src: producto.fotos[0].imagen, width: 240, format: 'webp' });
 ---
 <BaseLayout
   title={`${producto.nombre} · ${precio}`}
@@ -67,10 +68,17 @@ const og = await getImage({ src: producto.fotos[0].imagen, width: 1200, format: 
             <a href={subUrl}>Ver más de {subLabel}</a>
           </div>
         ) : (
-          <div class="cart-actions" data-add-to-cart data-slug={producto.slug}>
+          <div
+            class="cart-actions"
+            data-add-to-cart
+            data-slug={producto.slug}
+            data-nombre={producto.nombre}
+            data-precio={precio}
+            data-imagen={thumb.src}
+          >
             <button type="button" class="btn btn--block" data-add-button>Agregar al carrito</button>
             <p class="in-cart" data-in-cart hidden>
-              <span class="btn btn--block" aria-disabled="true">En tu carrito ✓</span>
+              <button type="button" class="btn btn--block btn--done" disabled>En tu carrito ✓</button>
               <a href={url('/carrito/')}>Ver carrito</a>
             </p>
           </div>

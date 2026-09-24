@@ -1,7 +1,327 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ComingSoon from '../components/ComingSoon.astro';
+import { getSite } from '../lib/site';
+import { url } from '../lib/url';
+
+const site = await getSite();
 ---
 <BaseLayout title="Tu carrito" noindex>
-  <ComingSoon title="Tu carrito" />
+  <div class="container cart" data-cart-page data-whatsapp={site.whatsapp}>
+    <header class="page-head">
+      <h1>Tu carrito</h1>
+    </header>
+
+    <div class="avisos" data-avisos role="status" aria-live="polite"></div>
+
+    <p data-state="cargando" class="muted">Cargando tu carrito…</p>
+
+    <div data-state="error" hidden>
+      <p>No pudimos cargar tu carrito. Revisá tu conexión y volvé a intentar.</p>
+      <button type="button" class="btn btn--secondary" data-reintentar>Reintentar</button>
+    </div>
+
+    <div data-state="vacio" class="vacio" hidden>
+      <p>Tu carrito está vacío. Mirá lo que tenemos en Accesorios y Home.</p>
+      <div class="ctas">
+        <a class="btn" href={url('/accesorios/')}>Ver Accesorios</a>
+        <a class="btn btn--secondary" href={url('/home/')}>Ver Home</a>
+      </div>
+    </div>
+
+    <div data-state="lleno" class="layout" hidden>
+      <section aria-labelledby="items-title">
+        <h2 id="items-title" class="visually-hidden">Productos</h2>
+        <ul class="items" role="list" data-items></ul>
+        <div class="total">
+          <p><span>Total de productos</span> <strong data-total></strong></p>
+          <p class="muted nota">El costo de envío (si corresponde) lo coordinamos por WhatsApp.</p>
+        </div>
+      </section>
+
+      <section class="checkout" aria-labelledby="form-title">
+        <h2 id="form-title" class="section-title">Tus datos</h2>
+        <form data-form novalidate>
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="nombre-error" />
+            <p class="error" id="nombre-error" data-error-for="nombre" hidden></p>
+          </div>
+
+          <fieldset class="field" aria-describedby="entrega-error">
+            <legend>Forma de entrega</legend>
+            <label class="radio"><input type="radio" name="entrega" value="envio" required /> Envío en Mercedes</label>
+            <label class="radio"><input type="radio" name="entrega" value="retiro" /> Retiro en Mercedes</label>
+            <p class="error" id="entrega-error" data-error-for="entrega" hidden></p>
+          </fieldset>
+
+          <div class="field" data-direccion hidden>
+            <label for="direccion">Dirección</label>
+            <input id="direccion" name="direccion" type="text" autocomplete="street-address" aria-describedby="direccion-error" />
+            <p class="error" id="direccion-error" data-error-for="direccion" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="comentario">Comentario <span class="muted">(opcional)</span></label>
+            <textarea id="comentario" name="comentario" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--block" data-enviar>Enviar pedido por WhatsApp</button>
+        </form>
+
+        <div class="listo" data-listo hidden tabindex="-1">
+          <p>¡Listo! Te abrimos WhatsApp para confirmar tu pedido. Si ya lo enviaste, podés vaciar el carrito.</p>
+          <button type="button" class="btn btn--secondary" data-vaciar>Vaciar carrito</button>
+        </div>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
+
+<script>
+  import { hidratar, quitar, vaciar, onCambio, avisar, type ItemIndice } from '../lib/cart';
+  import { createWhatsappProvider, type Order, type FormaEntrega } from '../lib/checkout';
+  import { formatPrecio } from '../lib/format';
+
+  const root = document.querySelector<HTMLElement>('[data-cart-page]')!;
+  const provider = createWhatsappProvider(root.dataset.whatsapp!);
+  const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+
+  const estados = root.querySelectorAll<HTMLElement>('[data-state]');
+  const mostrar = (estado: string) => estados.forEach((el) => (el.hidden = el.dataset.state !== estado));
+
+  let items: ItemIndice[] = [];
+
+  function pintar() {
+    if (items.length === 0) return mostrar('vacio');
+    mostrar('lleno');
+    const lista = $('[data-items]');
+    lista.replaceChildren(
+      ...items.map((item) => {
+        const li = document.createElement('li');
+        li.className = 'item';
+        li.innerHTML = `
+          <img alt="" width="80" height="100" loading="lazy" />
+          <div class="item-info">
+            <a class="item-name"></a>
+            <p class="item-price"></p>
+          </div>
+          <button type="button" class="quitar">Quitar</button>`;
+        li.querySelector('img')!.src = item.imagen;
+        const a = li.querySelector('a')!;
+        a.href = item.url;
+        a.textContent = item.nombre;
+        li.querySelector('.item-price')!.textContent = formatPrecio(item.precio);
+        const btn = li.querySelector<HTMLButtonElement>('.quitar')!;
+        btn.setAttribute('aria-label', `Quitar ${item.nombre} del carrito`);
+        btn.addEventListener('click', () => {
+          quitar(item.slug);
+          // Mover el foco a algo que siga existiendo.
+          requestAnimationFrame(() => (root.querySelector<HTMLElement>('.quitar') ?? $('h1')).focus?.());
+        });
+        return li;
+      }),
+    );
+    $('[data-total]').textContent = formatPrecio(total());
+  }
+
+  const total = () => items.reduce((s, i) => s + i.precio, 0);
+
+  async function cargar() {
+    mostrar('cargando');
+    try {
+      items = (await hidratar()).items; // los avisos de sacados los muestra el toast global
+      pintar();
+    } catch {
+      mostrar('error');
+    }
+  }
+
+  onCambio((slugs) => {
+    items = items.filter((i) => slugs.includes(i.slug));
+    // Si se agregó algo desde otra pestaña, recargamos.
+    if (slugs.length !== items.length) return void cargar();
+    pintar();
+  });
+  $('[data-reintentar]').addEventListener('click', cargar);
+
+  /* ---------- Formulario ---------- */
+  const form = $<HTMLFormElement>('[data-form]');
+  const direccionField = $('[data-direccion]');
+  const direccionInput = $<HTMLInputElement>('#direccion');
+
+  const entrega = (): FormaEntrega | null =>
+    (form.querySelector<HTMLInputElement>('input[name="entrega"]:checked')?.value as FormaEntrega) ?? null;
+
+  form.addEventListener('change', (e) => {
+    if ((e.target as HTMLInputElement).name === 'entrega') {
+      const esEnvio = entrega() === 'envio';
+      direccionField.hidden = !esEnvio;
+      direccionInput.required = esEnvio;
+      setError('entrega', '');
+      if (!esEnvio) setError('direccion', '');
+    }
+  });
+  form.addEventListener('input', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === 'nombre' || t.name === 'direccion') setError(t.name, '');
+  });
+
+  function setError(campo: string, mensaje: string) {
+    const p = root.querySelector<HTMLElement>(`[data-error-for="${campo}"]`)!;
+    p.textContent = mensaje;
+    p.hidden = !mensaje;
+    const controles = campo === 'entrega'
+      ? form.querySelectorAll<HTMLInputElement>('input[name="entrega"]')
+      : [form.querySelector<HTMLInputElement>(`[name="${campo}"]`)!];
+    controles.forEach((c) => c.toggleAttribute('aria-invalid', Boolean(mensaje)));
+  }
+
+  function validar(): Order['cliente'] | null {
+    const datos = new FormData(form);
+    const nombre = String(datos.get('nombre') ?? '').trim();
+    const forma = entrega();
+    const direccion = String(datos.get('direccion') ?? '').trim();
+    const comentario = String(datos.get('comentario') ?? '').trim();
+
+    const errores: [string, string][] = [];
+    if (!nombre) errores.push(['nombre', 'Escribí tu nombre.']);
+    if (!forma) errores.push(['entrega', 'Elegí si querés envío o retiro.']);
+    if (forma === 'envio' && !direccion) errores.push(['direccion', 'Escribí la dirección para el envío.']);
+
+    ['nombre', 'entrega', 'direccion'].forEach((c) => setError(c, ''));
+    errores.forEach(([c, m]) => setError(c, m));
+    if (errores.length) {
+      const primero = errores[0][0];
+      form.querySelector<HTMLElement>(primero === 'entrega' ? 'input[name="entrega"]' : `[name="${primero}"]`)?.focus();
+      return null;
+    }
+    return { nombre, entrega: forma!, direccion: forma === 'envio' ? direccion : undefined, comentario: comentario || undefined };
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cliente = validar();
+    if (!cliente) return;
+
+    // Abrimos la pestaña ya, dentro del click, para que no la bloqueen como pop-up.
+    const ventana = window.open('', '_blank');
+    if (ventana) ventana.document.title = 'Abriendo WhatsApp…';
+
+    const enviar = $<HTMLButtonElement>('[data-enviar]');
+    enviar.disabled = true;
+    try {
+      // Última verificación: que nada se haya vendido mientras tanto.
+      const { items: vigentes, avisos } = await hidratar(true);
+      items = vigentes;
+      if (avisos.length) {
+        ventana?.close();
+        avisos.forEach(avisar);
+        pintar();
+        return;
+      }
+      if (items.length === 0) {
+        ventana?.close();
+        return pintar();
+      }
+      await provider.checkout(
+        { items: items.map(({ slug, nombre, precio, url }) => ({ slug, nombre, precio, url })), total: total(), cliente },
+        { ventana },
+      );
+      form.hidden = true;
+      const listo = $('[data-listo]');
+      listo.hidden = false;
+      listo.focus();
+    } catch {
+      ventana?.close();
+      avisar('No pudimos verificar tu pedido. Revisá tu conexión y volvé a intentar.');
+    } finally {
+      enviar.disabled = false;
+    }
+  });
+
+  $('[data-vaciar]').addEventListener('click', () => {
+    vaciar();
+    form.reset();
+    form.hidden = false;
+    $('[data-listo]').hidden = true;
+    direccionField.hidden = true;
+  });
+
+  cargar();
+</script>
+
+<style>
+  .cart [hidden] { display: none !important; }
+  .avisos { display: grid; gap: var(--space-2); }
+  .avisos:not(:empty) { margin-bottom: var(--space-6); }
+  .avisos :global(.toast) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+    background: var(--color-surface);
+    border-left: 3px solid var(--color-accent);
+  }
+  .avisos :global(.toast p) { flex: 1; }
+  .avisos :global(.toast button) {
+    flex: none; width: var(--tap); height: var(--tap);
+    border: 0; background: none; font-size: 1.5rem; cursor: pointer; color: var(--color-text);
+  }
+  .vacio { display: grid; gap: var(--space-4); }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .layout { display: grid; gap: var(--space-12); }
+
+  .items { list-style: none; padding: 0; border-top: 1px solid var(--color-border); }
+  .items :global(.item) {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .items :global(img) { width: 80px; height: 100px; object-fit: cover; background: var(--color-surface); }
+  .items :global(.item-name) { font-weight: 600; text-decoration: none; }
+  .items :global(.item-name:hover) { text-decoration: underline; }
+  .items :global(.item-price) { font-weight: 700; }
+  .items :global(.quitar) {
+    min-height: var(--tap);
+    padding-inline: var(--space-2);
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+  .items :global(.quitar:hover) { color: var(--color-accent); }
+
+  .total { padding-top: var(--space-4); display: grid; gap: var(--space-2); }
+  .total p:first-child { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--fs-price); }
+  .nota { font-size: var(--fs-meta); }
+
+  .checkout { display: grid; gap: var(--space-6); align-content: start; }
+  form { display: grid; gap: var(--space-6); }
+  .field { display: grid; gap: var(--space-2); border: 0; padding: 0; }
+  label, legend { font-weight: 600; }
+  legend { margin-bottom: var(--space-2); padding: 0; }
+  input[type='text'], textarea {
+    width: 100%;
+    min-height: var(--tap);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid #8a8a8a; /* 3:1 contra blanco, requisito para bordes de inputs */
+    border-radius: var(--radius);
+    background: var(--color-bg);
+  }
+  textarea { resize: vertical; }
+  input[aria-invalid], textarea[aria-invalid] { border-color: #b3261e; }
+  .radio { display: flex; align-items: center; gap: var(--space-3); min-height: var(--tap); font-weight: 400; cursor: pointer; }
+  .radio input { width: 20px; height: 20px; accent-color: var(--color-text); margin: 0; }
+  .error { color: #b3261e; font-size: var(--fs-meta); font-weight: 600; }
+  .listo { display: grid; gap: var(--space-4); justify-items: start; padding: var(--space-6); background: var(--color-surface); border-radius: var(--radius); }
+
+  @media (min-width: 64rem) {
+    .layout { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-16); align-items: start; }
+    .checkout { position: sticky; top: calc(var(--header-h) + var(--space-6)); }
+  }
+</style>
