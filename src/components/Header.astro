@@ -7,7 +7,7 @@ const current = Astro.url.pathname;
 ---
 <header class="site-header">
   <div class="container bar">
-    <a href={url('/')} class="logo-link" aria-label="Chacha, ir al inicio"><Logo /></a>
+    <a href={url('/')} class="logo-link" aria-label="Chacha, ir al inicio"><Logo height={60} class="header-logo" /></a>
 
     <nav class="nav-desktop" aria-label="Principal">
       <ul>
@@ -37,7 +37,7 @@ const current = Astro.url.pathname;
 
   <dialog id="mobile-menu" class="mobile-menu" aria-label="Menú">
     <div class="container bar">
-      <a href={url('/')} class="logo-link" aria-label="Chacha, ir al inicio"><Logo /></a>
+      <a href={url('/')} class="logo-link" aria-label="Chacha, ir al inicio"><Logo height={60} class="header-logo" /></a>
       <button type="button" class="icon-btn" aria-label="Cerrar menú" data-menu-close>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
           <path d="M6 6l12 12M18 6 6 18" />
@@ -101,6 +101,10 @@ const current = Astro.url.pathname;
     color: var(--color-text);
   }
   .logo-link:hover { color: var(--color-text); }
+  .logo-link :global(.header-logo) { height: 52px; }
+  @media (min-width: 64rem) {
+    .logo-link :global(.header-logo) { height: 60px; }
+  }
 
   ul { list-style: none; padding: 0; }
 

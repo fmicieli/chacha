@@ -39,7 +39,8 @@ const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="sitemap" href={url('/sitemap-index.xml')} />
     <meta name="theme-color" content="#ffffff" />
     <meta name="generator" content={Astro.generator} />

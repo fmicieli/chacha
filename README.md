@@ -196,7 +196,7 @@ redirige. Después hay que ofrecer los dos proveedores en `carrito.astro`.
 
 | Cambio | Dónde |
 |---|---|
-| Logo definitivo | Reemplazar `src/components/Logo.astro` (mantener el `aria-label`) y `public/favicon.svg` |
+| Cambiar el logo | Reemplazar `src/assets/marca/logo.png` (PNG transparente, recortado al contenido) y regenerar `public/favicon-32.png` y `public/apple-touch-icon.png` |
 | Analytics | Slot comentado en `src/layouts/BaseLayout.astro` |
 | Feed de Instagram en vivo | Reemplazar el contenido de `src/components/InstagramGrid.astro` por el embed del widget (Behold, SnapWidget, …) |
 | TikTok | Agregar el campo en `sitio.json`, en el schema y en `.pages.yml`, y el link en `Footer.astro` |
@@ -206,7 +206,7 @@ redirige. Después hay que ofrecer los dos proveedores en `carrito.astro`.
 
 | Pendiente | Dónde |
 |---|---|
-| Logo (SVG o PNG transparente) | `Logo.astro` |
+| Logo en SVG (opcional, para máxima nitidez) | `src/assets/marca/` |
 | Número de WhatsApp | CMS → Configuración del sitio |
 | Link de Instagram | CMS → Configuración del sitio |
 | Texto y fotos de "Sobre nosotras" | CMS → Sobre nosotras (reemplazar `[TEXTO A COMPLETAR]`) |

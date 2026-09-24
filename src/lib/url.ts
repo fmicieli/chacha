@@ -3,7 +3,7 @@
  * Usar SIEMPRE este helper para links, imágenes de /public y assets.
  *   url('/')                 -> '/chacha/'
  *   url('/producto/abanico') -> '/chacha/producto/abanico/'
- *   url('/favicon.svg')      -> '/chacha/favicon.svg'
+ *   url('/favicon-32.png')   -> '/chacha/favicon-32.png'
  */
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 

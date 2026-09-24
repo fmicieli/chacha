@@ -1,17 +1,25 @@
 ---
-// Placeholder hasta tener el logo definitivo.
-// Para reemplazarlo: poner el SVG/PNG en src/assets/ y renderizarlo acá (mantener el aria-label).
-interface Props { class?: string }
-const { class: className } = Astro.props;
+import { Image } from 'astro:assets';
+import logo from '../assets/marca/logo.png';
+
+// Logo de Chacha (PNG transparente, recortado). Para cambiarlo, reemplazar src/assets/marca/logo.png.
+interface Props {
+  /** Alto en px en que se muestra. */
+  height?: number;
+  class?: string;
+}
+const { height = 52, class: className } = Astro.props;
 ---
-<span class:list={['logo', className]} aria-label="Chacha">chacha</span>
+<Image
+  src={logo}
+  alt="Chacha"
+  height={height}
+  densities={[1, 2, 3]}
+  class:list={['logo', className]}
+  loading="eager"
+  decoding="async"
+/>
 
 <style>
-  .logo {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
+  .logo { display: block; width: auto; }
 </style>
