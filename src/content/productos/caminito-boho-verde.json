@@ -1,0 +1,17 @@
+{
+  "nombre": "Caminito Boho Verde",
+  "subcategoria": "caminos",
+  "precio": 20000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/caminito-boho-verde-1.jpg",
+      "alt": "Camino de mesa de macramé verde salvia y crudo sobre una mesa de madera, con un jarrón de cerámica y lavanda"
+    }
+  ],
+  "descripcion": "Tejido de macramé, con flecos artesanales y combinación de verde salvia y crudo. Ideal para vestir tu mesa con calidez natural.",
+  "medidas": "220 x 30 cm",
+  "material": "Macramé",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

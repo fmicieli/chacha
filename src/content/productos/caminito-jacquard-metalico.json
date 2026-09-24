@@ -1,0 +1,17 @@
+{
+  "nombre": "Caminito Jacquard Metálico",
+  "subcategoria": "caminos",
+  "precio": 20000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/caminito-jacquard-metalico-1.jpg",
+      "alt": "Camino de jacquard crudo y dorado con borla, sobre una mesa de comedor con flores blancas"
+    }
+  ],
+  "descripcion": "Patrón geométrico y destellos metálicos en tonos crudo y dorado. Aporta elegancia y calidez a cualquier mesa.",
+  "medidas": "[A CONFIRMAR]",
+  "material": "Jacquard con hilos metálicos",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

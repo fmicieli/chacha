@@ -1,0 +1,17 @@
+{
+  "nombre": "Caminito Dalia Azul",
+  "subcategoria": "caminos",
+  "precio": 16000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/caminito-dalia-azul-1.jpg",
+      "alt": "Camino de mesa con dalias azul marino sobre fondo crudo, en una mesa de madera al aire libre"
+    }
+  ],
+  "descripcion": "Camino de mesa en poliéster con estampado de dalias en azul marino sobre fondo crudo. Fresco, gráfico y versátil para mesas de comedor o ambientes con estilo rústico.",
+  "medidas": "33 x 230 cm",
+  "material": "Poliéster",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

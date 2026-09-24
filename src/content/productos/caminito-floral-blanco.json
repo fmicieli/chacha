@@ -1,0 +1,17 @@
+{
+  "nombre": "Caminito Floral Blanco",
+  "subcategoria": "caminos",
+  "precio": 20000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/caminito-floral-blanco-1.jpg",
+      "alt": "Camino de mesa blanco marfil con relieve floral sobre una mesa ratona de madera"
+    }
+  ],
+  "descripcion": "Camino de mesa con patrón floral grabado en relieve, en tono blanco marfil. Elegante y atemporal, ideal para mesas formales o ambientes románticos.",
+  "medidas": "35 x 210 cm",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

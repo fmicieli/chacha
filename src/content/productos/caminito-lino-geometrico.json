@@ -1,0 +1,17 @@
+{
+  "nombre": "Caminito Lino Geométrico",
+  "subcategoria": "caminos",
+  "precio": 16000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/caminito-lino-geometrico-1.jpg",
+      "alt": "Camino de lino con círculos terracota, negros y crudos colgando de una consola de madera"
+    }
+  ],
+  "descripcion": "Confeccionado en lino, en tonos terracota, negro y crudo. Una pieza que suma carácter y calidez a cualquier ambiente.",
+  "medidas": "33 x 228 cm",
+  "material": "Lino",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}
