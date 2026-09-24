@@ -1,0 +1,21 @@
+{
+  "nombre": "Posavasos Trenzados · Set de 8",
+  "subcategoria": "posavasos",
+  "precio": 18000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/posavasos-trenzados-set-de-8-1.jpg",
+      "alt": "Ocho posavasos trenzados en tonos neutros apilados en un porta-posavasos negro"
+    },
+    {
+      "imagen": "../../assets/productos/posavasos-trenzados-set-de-8-2.jpg",
+      "alt": "Posavasos trenzados blancos y grises con tazas sobre una mesa ratona"
+    }
+  ],
+  "descripcion": "Set de 8 posavasos redondos trenzados en tonos neutros. Incluye porta-posavasos metálico negro. Funcionales y decorativos, se adaptan a cualquier estilo de hogar.",
+  "medidas": "Set de 8 · con porta-posavasos",
+  "material": "Trenzado · porta-posavasos metálico",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

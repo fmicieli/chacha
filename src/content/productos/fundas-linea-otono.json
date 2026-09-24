@@ -1,0 +1,21 @@
+{
+  "nombre": "Fundas Línea Otoño",
+  "subcategoria": "fundas",
+  "precio": 15000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/fundas-linea-otono-1.jpg",
+      "alt": "Almohadones con formas abstractas terracota y hojas negras sobre un sillón"
+    },
+    {
+      "imagen": "../../assets/productos/fundas-linea-otono-2.jpg",
+      "alt": "Tres almohadones con arcos negros y círculos terracota y rosa"
+    }
+  ],
+  "descripcion": "Estampados orgánicos en tonos terracota, rosa y negro. Formas abstractas y hojas que crean un ambiente cálido y contemporáneo. El precio es por pack de 3 unidades.",
+  "medidas": "40 x 40 cm · Pack de 3",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

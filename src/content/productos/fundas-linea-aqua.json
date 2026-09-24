@@ -1,0 +1,21 @@
+{
+  "nombre": "Fundas Línea Aqua",
+  "subcategoria": "fundas",
+  "precio": 15000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/fundas-linea-aqua-1.jpg",
+      "alt": "Tres almohadones celestes con hojas acuareladas sobre un sillón claro"
+    },
+    {
+      "imagen": "../../assets/productos/fundas-linea-aqua-2.jpg",
+      "alt": "Almohadones con hojas y rayas azul suave sobre un sillón beige"
+    }
+  ],
+  "descripcion": "Fundas en tonos azul suave con motivos de hojas y texturas acuareladas. Frescas y delicadas, ideales para ambientes luminosos. El precio es por pack de 3 unidades.",
+  "medidas": "40 x 40 cm · Pack de 3",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

@@ -1,0 +1,21 @@
+{
+  "nombre": "Fundas Línea Marina",
+  "subcategoria": "fundas",
+  "precio": 15000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/fundas-linea-marina-1.jpg",
+      "alt": "Tres almohadones con estampados gráficos azules sobre un sillón beige"
+    },
+    {
+      "imagen": "../../assets/productos/fundas-linea-marina-2.jpg",
+      "alt": "Almohadones con hojas azul marino y flores mostaza sobre un sillón"
+    }
+  ],
+  "descripcion": "Fundas de almohada con estampados gráficos y florales en azul marino, gris y mostaza. Una línea con personalidad, para espacios con carácter. El precio es por pack de 3 unidades.",
+  "medidas": "40 x 40 cm · Pack de 3",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}

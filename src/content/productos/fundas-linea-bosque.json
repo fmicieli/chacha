@@ -1,0 +1,21 @@
+{
+  "nombre": "Fundas Línea Bosque",
+  "subcategoria": "fundas",
+  "precio": 15000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/fundas-linea-bosque-1.jpg",
+      "alt": "Tres almohadones a rayas y con hojas en verde salvia sobre un sillón beige"
+    },
+    {
+      "imagen": "../../assets/productos/fundas-linea-bosque-2.jpg",
+      "alt": "Almohadones blancos con hojas verde salvia sobre un sillón"
+    }
+  ],
+  "descripcion": "Fundas de almohada con estampado botánico en tonos verde salvia y blanco. Rayas, hojas y florales que traen la calma de la naturaleza a tu living. El precio es por pack de 3 unidades.",
+  "medidas": "40 x 40 cm · Pack de 3",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-24",
+  "destacado": false
+}
