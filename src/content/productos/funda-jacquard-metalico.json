@@ -1,0 +1,23 @@
+{
+  "nombre": "Funda Jacquard Metálico",
+  "slug": "funda-jacquard-metalico",
+  "seccion": "home",
+  "subcategoria": "fundas",
+  "precio": 18000,
+  "descripcion": "Funda de almohadón en jacquard con hilos metálicos dorados. Cierre invisible.",
+  "medidas": "45 x 45 cm",
+  "material": "Jacquard de algodón y lurex",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/funda-jacquard-metalico-1.jpg",
+      "alt": "Funda Jacquard Metálico, vista de frente"
+    },
+    {
+      "imagen": "../../assets/productos/funda-jacquard-metalico-2.jpg",
+      "alt": "Funda Jacquard Metálico, foto 2"
+    }
+  ],
+  "estado": "disponible",
+  "fecha_alta": "2026-09-15",
+  "destacado": false
+}

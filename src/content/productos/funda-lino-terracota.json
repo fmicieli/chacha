@@ -1,0 +1,23 @@
+{
+  "nombre": "Funda Lino Terracota",
+  "slug": "funda-lino-terracota",
+  "seccion": "home",
+  "subcategoria": "fundas",
+  "precio": 16500,
+  "descripcion": "Funda de lino lavado en color terracota, con terminación de flecos.",
+  "medidas": "50 x 50 cm",
+  "material": "Lino lavado",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/funda-lino-terracota-1.jpg",
+      "alt": "Funda Lino Terracota, vista de frente"
+    },
+    {
+      "imagen": "../../assets/productos/funda-lino-terracota-2.jpg",
+      "alt": "Funda Lino Terracota, foto 2"
+    }
+  ],
+  "estado": "disponible",
+  "fecha_alta": "2026-09-08",
+  "destacado": false
+}

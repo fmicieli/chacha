@@ -1,0 +1,27 @@
+{
+  "nombre": "Abanico Jardín de Naranjos",
+  "slug": "abanico-jardin-de-naranjos",
+  "seccion": "accesorios",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "descripcion": "Abanico de tela pintado a mano con ramas de naranjo en flor. Varillas de madera natural.",
+  "medidas": "23 cm de largo · 42 cm abierto",
+  "material": "Tela de algodón y varillas de madera",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-jardin-de-naranjos-1.jpg",
+      "alt": "Abanico Jardín de Naranjos, vista de frente"
+    },
+    {
+      "imagen": "../../assets/productos/abanico-jardin-de-naranjos-2.jpg",
+      "alt": "Abanico Jardín de Naranjos, foto 2"
+    },
+    {
+      "imagen": "../../assets/productos/abanico-jardin-de-naranjos-3.jpg",
+      "alt": "Abanico Jardín de Naranjos, foto 3"
+    }
+  ],
+  "estado": "disponible",
+  "fecha_alta": "2026-09-20",
+  "destacado": true
+}

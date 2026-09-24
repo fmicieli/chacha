@@ -2,5 +2,47 @@
   "whatsapp": "549XXXXXXXXXX",
   "instagram_url": "https://instagram.com/",
   "zona_entrega": "Mercedes, Buenos Aires",
-  "texto_entregas": "Por ahora hacemos envíos y retiros solo en Mercedes."
+  "texto_entregas": "Por ahora hacemos envíos y retiros solo en Mercedes.",
+  "hero": {
+    "titulo": "Piezas únicas, pintadas a mano",
+    "subtitulo": "Accesorios y deco para tu casa, hechos en Mercedes.",
+    "imagen": "../../assets/sitio/hero.jpg",
+    "alt": "Abanicos y tote bags pintados a mano sobre una mesa"
+  },
+  "bajada_accesorios": "Abanicos y tote bags pintados a mano. Cada pieza es única.",
+  "bajada_home": "Fundas, caminos de mesa y posavasos para darle calidez a tu casa.",
+  "imagen_accesorios": "../../assets/sitio/seccion-accesorios.jpg",
+  "imagen_home": "../../assets/sitio/seccion-home.jpg",
+  "instagram_grid": [
+    {
+      "imagen": "../../assets/sitio/instagram-1.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 1 de Chacha en Instagram"
+    },
+    {
+      "imagen": "../../assets/sitio/instagram-2.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 2 de Chacha en Instagram"
+    },
+    {
+      "imagen": "../../assets/sitio/instagram-3.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 3 de Chacha en Instagram"
+    },
+    {
+      "imagen": "../../assets/sitio/instagram-4.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 4 de Chacha en Instagram"
+    },
+    {
+      "imagen": "../../assets/sitio/instagram-5.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 5 de Chacha en Instagram"
+    },
+    {
+      "imagen": "../../assets/sitio/instagram-6.jpg",
+      "link": "https://instagram.com/",
+      "alt": "Posteo 6 de Chacha en Instagram"
+    }
+  ]
 }
