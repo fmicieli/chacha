@@ -146,14 +146,16 @@ Hoy existe un solo proveedor: `createWhatsappProvider(numero)` (`src/lib/checkou
 ## Deploy
 
 Cada push a `main` (o cada guardado en el CMS, que es un commit) corre el workflow y
-publica en 1 o 2 minutos.
+publica en 1 o 2 minutos. Como el CMS commitea directo a `main`, hacé `git pull` antes de
+tocar código en local.
 
 ### Primera vez
 
 1. Crear el repo en GitHub y subir `main`.
 2. GitHub → **Settings → Pages → Source: GitHub Actions**.
-3. Entrar a https://app.pagescms.org con GitHub e instalar la GitHub App de Pages CMS
-   en el repo.
+3. Entrar a https://app.pagescms.org con GitHub e instalar la GitHub App de Pages CMS.
+   En **Repository access** elegir **Only select repositories → chacha**: la app pide
+   permiso de escritura y administración, así que no conviene darle acceso a todos los repos.
 4. Sumar a las administradoras (ver abajo).
 5. Cargar el número de WhatsApp en el CMS → **Configuración del sitio**. Mientras siga el
    placeholder `549XXXXXXXXXX`, el build muestra un warning y los botones de WhatsApp no
@@ -165,9 +167,11 @@ Hay dos formas, a elección:
 
 - **Con cuenta de GitHub:** agregarla como colaboradora del repo (Settings →
   Collaborators). Entra al panel con "Sign in with GitHub".
-- **Solo con mail (recomendado si no usa GitHub):** en Pages CMS, desde el repo →
-  **Collaborators**, invitarla por mail. Entra con su mail y un código que le llega al
-  correo. Puede editar contenido y fotos, pero no la configuración ni las colaboradoras.
+- **Solo con mail:** en Pages CMS, desde el repo → **Collaborators**, invitarla por mail.
+  Entra con su mail y un código que le llega al correo. Puede editar contenido y fotos,
+  pero no la configuración ni las colaboradoras. **Ojo:** la descripción de la GitHub App
+  dice que las invitaciones por mail son de *Pages CMS Pro* (pago), aunque la web dice
+  que todo es gratis. Si al invitar pide Pro, usar la opción con cuenta de GitHub (gratis).
 
 ## Preparado para el futuro
 

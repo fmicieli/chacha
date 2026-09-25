@@ -23,9 +23,10 @@ Todo se hace desde un panel en la web, que se llama **Pages CMS**.
 
 1. Entrá a **[app.pagescms.org](https://app.pagescms.org)** desde la computadora o el celular.
 2. Elegí cómo entrar:
-   - **Con tu mail:** escribí tu mail, te llega un código al correo y lo escribís en la pantalla.
-     (Funciona solo si antes te invitaron desde el panel con ese mail.)
-   - **Con GitHub:** si tenés cuenta de GitHub, tocá "Sign in with GitHub".
+   - **Con GitHub** (la forma habitual): tocá "Sign in with GitHub" y entrá con tu usuario.
+     Antes te tienen que haber sumado al proyecto (te llega un mail de GitHub para aceptar).
+   - **Con tu mail:** si te invitaron por mail desde el panel, escribí tu mail, te llega un
+     código al correo y lo escribís en la pantalla.
 3. Tocá el proyecto **chacha**.
 4. A la izquierda vas a ver tres opciones:
    - **Productos**: todo lo que se vende.
