@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Grande Cielo",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-grande-cielo-1.jpg",
+      "alt": "Abanico grande abierto con manchas celestes y blancas, sostenido frente a un sauce"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Tonos celestes y blancos con efecto teñido.",
+  "medidas": "Tamaño grande",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

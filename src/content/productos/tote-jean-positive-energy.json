@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Jean Positive Energy",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-jean-positive-energy-1.jpg",
+      "alt": "Tote bag de jean con la frase \"Positive Energy\" y flores pintadas en blanco"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Frase \"Positive Energy\" con flores en blanco.",
+  "medidas": "40 x 50 cm",
+  "material": "Jean",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

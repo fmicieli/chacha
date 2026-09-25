@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Grande Acuarela Aqua",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-grande-acuarela-aqua-1.jpg",
+      "alt": "Abanico grande abierto pintado en acuarela verde agua, en un jardín"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Verde agua en acuarela.",
+  "medidas": "Tamaño grande",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

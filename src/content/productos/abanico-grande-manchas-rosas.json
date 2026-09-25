@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Grande Manchas Rosas",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-grande-manchas-rosas-1.jpg",
+      "alt": "Abanico grande negro con manchas rosas y azules, en un jardín"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Fondo negro con manchas rosas y azules.",
+  "medidas": "Tamaño grande",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

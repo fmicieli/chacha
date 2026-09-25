@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Grande Blanco y Azul",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-grande-blanco-y-azul-1.jpg",
+      "alt": "Abanico grande blanco con borde azul, sostenido frente a un sauce"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Blanco con borde azul pintado.",
+  "medidas": "Tamaño grande",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

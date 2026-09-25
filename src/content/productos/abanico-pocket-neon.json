@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Pocket Neón",
+  "subcategoria": "abanicos",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-pocket-neon-1.jpg",
+      "alt": "Abanico pocket multicolor neón, sostenido frente a un sauce"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Colores neón en degradé, en tamaño de bolsillo.",
+  "medidas": "Tamaño pocket",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

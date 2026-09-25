@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Jean Buenas Vibras",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-jean-buenas-vibras-1.jpg",
+      "alt": "Tote bag de jean con la frase \"Aquí sólo hay buenas vibras\" pintada sobre acuarela"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Frase \"Aquí sólo hay buenas vibras\" sobre fondo acuarela.",
+  "medidas": "40 x 50 cm",
+  "material": "Jean",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

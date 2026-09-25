@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Gabardina Lavanda",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-gabardina-lavanda-1.jpg",
+      "alt": "Tote bag de gabardina cruda con ramitas de lavanda pintadas"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Ramitas de lavanda.",
+  "medidas": "40 x 50 cm",
+  "material": "Gabardina",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

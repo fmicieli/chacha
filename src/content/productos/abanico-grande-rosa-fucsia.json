@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Grande Rosa Fucsia",
+  "subcategoria": "abanicos",
+  "precio": 25000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-grande-rosa-fucsia-1.jpg",
+      "alt": "Abanico grande abierto rosa fucsia en degradé, en un jardín"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Rosa fucsia en degradé.",
+  "medidas": "Tamaño grande",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

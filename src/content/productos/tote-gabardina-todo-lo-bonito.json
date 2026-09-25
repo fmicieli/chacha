@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Gabardina Todo lo Bonito",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-gabardina-todo-lo-bonito-1.jpg",
+      "alt": "Tote bag de gabardina cruda con la frase \"Que todo lo bonito que das te encuentre\" y una nena soplando estrellas"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Frase \"Que todo lo bonito que das te encuentre\".",
+  "medidas": "40 x 50 cm",
+  "material": "Gabardina",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

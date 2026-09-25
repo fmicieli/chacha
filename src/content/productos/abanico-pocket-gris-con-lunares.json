@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Pocket Gris con Lunares",
+  "subcategoria": "abanicos",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-pocket-gris-con-lunares-1.jpg",
+      "alt": "Abanico pocket gris con lunares rosas, sostenido frente a un sauce"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Gris con lunares rosas, en tamaño de bolsillo.",
+  "medidas": "Tamaño pocket",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

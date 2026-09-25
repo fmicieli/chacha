@@ -1,0 +1,17 @@
+{
+  "nombre": "Abanico Pocket Amarillo",
+  "subcategoria": "abanicos",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/abanico-pocket-amarillo-1.jpg",
+      "alt": "Abanico pocket amarillo abierto, sostenido frente a un sauce"
+    }
+  ],
+  "descripcion": "Abanico pintado a mano, un diseño único que convierte la pieza en una obra irrepetible. Amarillo intenso, en tamaño de bolsillo.",
+  "medidas": "Tamaño pocket",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

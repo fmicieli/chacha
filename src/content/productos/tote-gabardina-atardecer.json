@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Gabardina Atardecer",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-gabardina-atardecer-1.jpg",
+      "alt": "Tote bag de gabardina cruda con un atardecer en acuarela rosa y amarillo"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Atardecer en acuarela rosa y amarillo.",
+  "medidas": "40 x 50 cm",
+  "material": "Gabardina",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

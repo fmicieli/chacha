@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Jean Calavera Floral",
+  "subcategoria": "tote-bags",
+  "precio": 22000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-jean-calavera-floral-1.jpg",
+      "alt": "Tote bag de jean con una calavera mexicana con flores pintada a mano"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Calavera mexicana con flores de colores.",
+  "medidas": "40 x 50 cm",
+  "material": "Jean",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

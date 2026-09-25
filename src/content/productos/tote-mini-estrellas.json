@@ -1,0 +1,17 @@
+{
+  "nombre": "Tote Mini Estrellas",
+  "subcategoria": "tote-bags",
+  "precio": 15000,
+  "estado": "disponible",
+  "fotos": [
+    {
+      "imagen": "../../assets/productos/tote-mini-estrellas-1.jpg",
+      "alt": "Tote bag chica negra con estrellas blancas pintadas"
+    }
+  ],
+  "descripcion": "Tote bag pintada a mano, intervenida con un diseño original. Hecha para acompañar lo cotidiano con un detalle artístico y personal. Fondo negro con estrellas blancas.",
+  "medidas": "30 x 40 cm",
+  "material": "[A CONFIRMAR]",
+  "fecha_alta": "2026-09-25",
+  "destacado": false
+}

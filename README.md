@@ -214,7 +214,6 @@ redirige. Después hay que ofrecer los dos proveedores en `carrito.astro`.
 | Número de WhatsApp | CMS → Configuración del sitio |
 | Link de Instagram | CMS → Configuración del sitio |
 | Texto y fotos de "Sobre nosotras" | CMS → Sobre nosotras (reemplazar `[TEXTO A COMPLETAR]`) |
-| Productos reales de Accesorios con fotos | CMS → Productos (abanicos y tote bags siguen siendo de ejemplo) |
-| Material del Caminito Floral Blanco y de las 4 líneas de fundas; medidas del Caminito Jacquard Metálico | CMS → Productos (hoy dicen `[A CONFIRMAR]`) |
+| Datos `[A CONFIRMAR]`: material de los 9 abanicos, de las 3 Tote Mini, de las 4 líneas de fundas y del Caminito Floral Blanco; medidas del Caminito Jacquard Metálico | CMS → Productos |
 | Imagen de portada y grilla de Instagram | CMS → Configuración del sitio |
 | Acceso de las dos administradoras | Ver "Administradoras" |
