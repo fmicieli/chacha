@@ -92,6 +92,10 @@ import { url } from '../lib/url';
     const enCarrito = box.querySelector<HTMLElement>('[data-in-cart]')!;
     const verCarrito = enCarrito.querySelector<HTMLAnchorElement>('a');
 
+    // Precargar la miniatura para que el panel la muestre al instante.
+    const precarga = () => { new Image().src = box.dataset.imagen!; };
+    'requestIdleCallback' in window ? requestIdleCallback(precarga) : setTimeout(precarga, 1000);
+
     const pintar = () => {
       const esta = estaEnCarrito(slug);
       boton.hidden = esta;
