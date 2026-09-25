@@ -252,6 +252,8 @@ const site = await getSite();
 
 <style>
   .cart [hidden] { display: none !important; }
+  /* Reserva el alto mientras se hidrata el carrito, así el pie no salta (CLS). */
+  .cart { min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); }
   .avisos { display: grid; gap: var(--space-2); }
   .avisos:not(:empty) { margin-bottom: var(--space-6); }
   .avisos :global(.toast) {

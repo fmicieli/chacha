@@ -115,7 +115,7 @@ const thumb = await getImage({ src: producto.fotos[0].imagen, width: 240, format
   .info { display: grid; gap: var(--space-3); align-content: start; }
   .crumbs ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; font-size: var(--fs-meta); color: var(--color-muted); }
   .crumbs li + li::before { content: '›'; margin-inline: var(--space-2); }
-  .crumbs a { display: inline-block; padding-block: var(--space-2); text-decoration: none; }
+  .crumbs a { display: inline-flex; align-items: center; min-height: var(--tap); min-width: var(--tap); text-decoration: none; }
   .crumbs a:hover { text-decoration: underline; }
   .price { font-size: var(--fs-price); font-weight: 700; }
   .tag {
