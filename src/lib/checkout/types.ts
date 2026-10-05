@@ -1,5 +1,5 @@
 /** El cliente no elige forma de entrega: envío o retiro se coordina por WhatsApp. */
-export const ENTREGA = 'A coordinar con el vendedor';
+export const ENTREGA = 'A coordinar por WhatsApp';
 
 export interface OrderItem {
   slug: string;

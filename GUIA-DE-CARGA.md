@@ -187,7 +187,7 @@ Total: $ 37.000
 https://fmicieli.github.io/chacha/pedido/?p=tote-mini-ama,abanico-pocket-neon
 
 Nombre: Laura
-Entrega: A coordinar con el vendedor
+Entrega: A coordinar por WhatsApp
 Comentario: ¿Lo puedo retirar el sábado?
 ```
 
