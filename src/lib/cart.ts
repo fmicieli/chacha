@@ -11,6 +11,9 @@ export interface ItemIndice {
   precio: number;
   estado: 'disponible' | 'vendido';
   imagen: string;
+  /** Foto principal en 640px, para /pedido/. */
+  imagenGrande: string;
+  alt: string;
   url: string;
 }
 

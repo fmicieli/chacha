@@ -1,0 +1,155 @@
+---
+/**
+ * Resumen visual de un pedido: /pedido/?p=slug-1,slug-2
+ * El link va en el mensaje de WhatsApp para que cliente y tienda vean qué pieza es cada una
+ * (son modelos únicos). Se arma en el navegador con /productos.json; las piezas vendidas
+ * se siguen mostrando con la etiqueta "Vendido".
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+<BaseLayout title="Pedido" noindex>
+  <div class="container pedido" data-pedido>
+    <header class="page-head">
+      <h1>Pedido</h1>
+      <p class="lede" data-bajada>Estas son las piezas del pedido.</p>
+    </header>
+
+    <p data-state="cargando" class="muted">Cargando el pedido…</p>
+
+    <div data-state="error" hidden>
+      <p>No pudimos cargar el pedido. Revisá tu conexión y volvé a intentar.</p>
+    </div>
+
+    <div data-state="vacio" hidden>
+      <p>Este link no tiene productos. Mirá lo que tenemos en <a href={url('/accesorios/')}>Accesorios</a> y <a href={url('/home/')}>Home</a>.</p>
+    </div>
+
+    <div data-state="lleno" hidden>
+      <ul class="grid" role="list" data-items></ul>
+      <p class="total"><span>Total</span> <strong data-total></strong></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { cargarIndice, type ItemIndice } from '../lib/cart';
+  import { formatPrecio } from '../lib/format';
+
+  const root = document.querySelector<HTMLElement>('[data-pedido]')!;
+  const mostrar = (estado: string) =>
+    root.querySelectorAll<HTMLElement>('[data-state]').forEach((el) => (el.hidden = el.dataset.state !== estado));
+
+  const slugs = [
+    ...new Set(
+      (new URLSearchParams(location.search).get('p') ?? '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => /^[a-z0-9-]+$/.test(s)),
+    ),
+  ];
+
+  function card(item: ItemIndice | undefined, slug: string, n: number): HTMLLIElement {
+    const li = document.createElement('li');
+    li.className = 'pieza';
+    if (!item) {
+      li.innerHTML = `<div class="media vacia"></div><p class="num"></p><p class="name"></p><p class="price muted">Ya no está publicado</p>`;
+      li.querySelector('.num')!.textContent = `${n}.`;
+      li.querySelector('.name')!.textContent = slug;
+      return li;
+    }
+    li.innerHTML = `
+      <a class="link">
+        <div class="media"><img loading="lazy" decoding="async" width="640" height="800" /></div>
+        <p class="num"></p>
+        <h2 class="name"></h2>
+        <p class="price"></p>
+      </a>`;
+    const a = li.querySelector('a')!;
+    a.href = item.url;
+    const img = li.querySelector('img')!;
+    img.src = item.imagenGrande;
+    img.alt = item.alt;
+    li.querySelector('.num')!.textContent = `${n}.`;
+    li.querySelector('.name')!.textContent = item.nombre;
+    li.querySelector('.price')!.textContent = formatPrecio(item.precio);
+    if (item.estado === 'vendido') {
+      li.classList.add('vendido');
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = 'Vendido';
+      li.querySelector('.media')!.append(badge);
+    }
+    return li;
+  }
+
+  async function cargar() {
+    if (slugs.length === 0) return mostrar('vacio');
+    try {
+      const porSlug = new Map((await cargarIndice(true)).map((i) => [i.slug, i]));
+      const items = slugs.map((s) => porSlug.get(s));
+      root.querySelector('[data-items]')!.replaceChildren(...items.map((it, i) => card(it, slugs[i], i + 1)));
+      const total = items.reduce((sum, it) => sum + (it?.precio ?? 0), 0);
+      root.querySelector('[data-total]')!.textContent = formatPrecio(total);
+      root.querySelector('[data-bajada]')!.textContent =
+        slugs.length === 1 ? 'Esta es la pieza del pedido.' : `Estas son las ${slugs.length} piezas del pedido.`;
+      mostrar('lleno');
+    } catch {
+      mostrar('error');
+    }
+  }
+
+  cargar();
+</script>
+
+<style>
+  .pedido [hidden] { display: none !important; }
+  .pedido { min-height: calc(100svh - var(--header-h)); }
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8) var(--space-3);
+  }
+  @media (min-width: 40rem) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8) var(--space-4); } }
+  @media (min-width: 64rem) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-12) var(--space-6); } }
+
+  .grid :global(.link) { display: grid; gap: var(--space-1); text-decoration: none; color: var(--color-text); }
+  .grid :global(.media) {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--color-surface);
+    margin-bottom: var(--space-2);
+  }
+  .grid :global(.media img) { width: 100%; height: 100%; object-fit: cover; }
+  .grid :global(.num) { font-size: var(--fs-meta); color: var(--color-muted); }
+  .grid :global(.name) { font-size: var(--fs-h3); font-weight: 600; line-height: 1.3; }
+  .grid :global(.price) { font-weight: 700; }
+  .grid :global(.link:hover .name) { text-decoration: underline; text-underline-offset: 0.2em; }
+  .grid :global(.badge) {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    padding: 2px var(--space-2);
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: var(--fs-meta);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    border-radius: var(--radius);
+  }
+  .grid :global(.vendido img) { opacity: 0.6; filter: grayscale(0.6); }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: var(--space-12);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-price);
+  }
+</style>

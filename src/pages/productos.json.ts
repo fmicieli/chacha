@@ -12,12 +12,15 @@ export const GET: APIRoute = async () => {
   const indice = await Promise.all(
     productos.map(async (p) => {
       const thumb = await getImage({ src: p.fotos[0].imagen, width: 240, format: 'webp' });
+      const grande = await getImage({ src: p.fotos[0].imagen, width: 640, format: 'webp' });
       return {
         slug: p.slug,
         nombre: p.nombre,
         precio: p.precio,
         estado: p.estado,
         imagen: thumb.src,
+        imagenGrande: grande.src,
+        alt: p.fotos[0].alt,
         url: url(`/producto/${p.slug}/`),
       };
     }),

@@ -81,6 +81,9 @@ const site = await getSite();
   import { hidratar, quitar, vaciar, onCambio, avisar, type ItemIndice } from '../lib/cart';
   import { createWhatsappProvider, type Order, type FormaEntrega } from '../lib/checkout';
   import { formatPrecio } from '../lib/format';
+  import { url as rutaInterna } from '../lib/url';
+
+  const absoluta = (ruta: string) => new URL(ruta, window.location.href).href;
 
   const root = document.querySelector<HTMLElement>('[data-cart-page]')!;
   const provider = createWhatsappProvider(root.dataset.whatsapp!);
@@ -224,7 +227,12 @@ const site = await getSite();
         return pintar();
       }
       await provider.checkout(
-        { items: items.map(({ slug, nombre, precio, url }) => ({ slug, nombre, precio, url })), total: total(), cliente },
+        {
+          items: items.map(({ slug, nombre, precio, url }) => ({ slug, nombre, precio, url: absoluta(url) })),
+          total: total(),
+          resumenUrl: absoluta(`${rutaInterna('/pedido/')}?p=${items.map((i) => i.slug).join(',')}`),
+          cliente,
+        },
         { ventana },
       );
       form.hidden = true;

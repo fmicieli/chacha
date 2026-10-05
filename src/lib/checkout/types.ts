@@ -9,12 +9,15 @@ export interface OrderItem {
   slug: string;
   nombre: string;
   precio: number;
+  /** URL absoluta del producto (se comparte en el mensaje). */
   url: string;
 }
 
 export interface Order {
   items: OrderItem[];
   total: number;
+  /** URL absoluta de /pedido/ con las fotos de todas las piezas. */
+  resumenUrl?: string;
   cliente: {
     nombre: string;
     entrega: FormaEntrega;

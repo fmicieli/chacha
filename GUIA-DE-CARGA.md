@@ -176,15 +176,22 @@ Cuando alguien compra, arma el carrito, completa su nombre y forma de entrega, y
 ```
 ¡Hola! Quiero comprar:
 
-• Abanico Jardín de Naranjos · $ 25.000
-• Funda Jacquard Metálico · $ 18.000
+1. Tote Mini Ama · $ 15.000
+   https://fmicieli.github.io/chacha/producto/tote-mini-ama/
+2. Abanico Pocket Neón · $ 22.000
+   https://fmicieli.github.io/chacha/producto/abanico-pocket-neon/
 
-Total: $ 43.000
+Total: $ 37.000
+
+📷 Ver pedido con fotos:
+https://fmicieli.github.io/chacha/pedido/?p=tote-mini-ama,abanico-pocket-neon
 
 Nombre: Laura
 Entrega: Envío en Mercedes
 Dirección: Calle 123
 Comentario: ¿Lo pueden entregar el sábado?
 ```
+
+Como cada pieza es única, cada producto viene con **su link**: tocándolo ves exactamente cuál es. Y el link **"Ver pedido con fotos"** abre una página con la foto, el nombre y el precio de todas las piezas juntas, más el total. Si ya marcaste alguna como vendida, igual aparece ahí con la etiqueta "Vendido", así sabés qué te pidieron.
 
 El pago y el envío se coordinan por el chat. **Cuando se concrete la venta, acordate de marcar el producto como Vendido** (paso 3), así nadie más lo pide.

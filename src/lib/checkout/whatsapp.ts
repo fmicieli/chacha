@@ -4,18 +4,23 @@ import { FORMAS_ENTREGA, type CheckoutProvider, type Order } from './types';
 // En el texto plano de WhatsApp usamos espacio común en vez del espacio duro de Intl.
 const precio = (n: number) => formatPrecio(n).replace(/ /g, ' ');
 
+/**
+ * Un link por pieza para identificarla sin dudas (son modelos únicos). WhatsApp arma la
+ * vista previa con la foto del primer link; /pedido/ muestra las fotos de todas juntas.
+ * wa.me solo admite texto, así que las imágenes no se pueden adjuntar directamente.
+ */
 export function mensajeDePedido(order: Order): string {
   const { cliente } = order;
   const lineas = [
     '¡Hola! Quiero comprar:',
     '',
-    ...order.items.map((i) => `• ${i.nombre} · ${precio(i.precio)}`),
+    ...order.items.flatMap((i, n) => [`${n + 1}. ${i.nombre} · ${precio(i.precio)}`, `   ${i.url}`]),
     '',
     `Total: ${precio(order.total)}`,
     '',
-    `Nombre: ${cliente.nombre}`,
-    `Entrega: ${FORMAS_ENTREGA[cliente.entrega]}`,
   ];
+  if (order.resumenUrl) lineas.push('📷 Ver pedido con fotos:', order.resumenUrl, '');
+  lineas.push(`Nombre: ${cliente.nombre}`, `Entrega: ${FORMAS_ENTREGA[cliente.entrega]}`);
   if (cliente.entrega === 'envio' && cliente.direccion?.trim()) lineas.push(`Dirección: ${cliente.direccion.trim()}`);
   if (cliente.comentario?.trim()) lineas.push(`Comentario: ${cliente.comentario.trim()}`);
   return lineas.join('\n');

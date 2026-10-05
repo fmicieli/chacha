@@ -130,6 +130,9 @@ Editar `src/lib/catalogo.ts` **y** las opciones de `subcategoria` en `.pages.yml
   recién después se le carga la URL. Si se abriera después de un `await`, Safari la
   bloquearía como pop-up.
 - El carrito no se vacía solo: después del envío aparece el botón "Vaciar carrito".
+- El mensaje lleva el link de cada pieza (son únicas) y un link a `/pedido/?p=slug,slug`, una
+  página `noindex` que muestra foto, nombre y precio de cada pieza desde `/productos.json`
+  (incluye las vendidas). `wa.me` solo acepta texto: no se pueden adjuntar imágenes.
 
 ### `CheckoutProvider`
 

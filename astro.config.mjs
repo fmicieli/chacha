@@ -10,7 +10,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      filter: (page) => !/\/(carrito|404)\/?$/.test(new URL(page).pathname),
+      filter: (page) => !/\/(carrito|pedido|404)\/?$/.test(new URL(page).pathname),
     }),
   ],
 });
