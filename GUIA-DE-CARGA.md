@@ -171,7 +171,7 @@ Si sigue igual:
 
 ## 7. Cómo llegan los pedidos
 
-Cuando alguien compra, arma el carrito, completa su nombre y forma de entrega, y toca **Enviar pedido por WhatsApp**. Te llega un mensaje así:
+Cuando alguien compra, arma el carrito, completa su nombre (y un comentario si quiere) y toca **Enviar pedido por WhatsApp**. Te llega un mensaje así:
 
 ```
 ¡Hola! Quiero comprar:
@@ -187,11 +187,10 @@ Total: $ 37.000
 https://fmicieli.github.io/chacha/pedido/?p=tote-mini-ama,abanico-pocket-neon
 
 Nombre: Laura
-Entrega: Envío en Mercedes
-Dirección: Calle 123
-Comentario: ¿Lo pueden entregar el sábado?
+Entrega: A coordinar con el vendedor
+Comentario: ¿Lo puedo retirar el sábado?
 ```
 
 Como cada pieza es única, cada producto viene con **su link**: tocándolo ves exactamente cuál es. Y el link **"Ver pedido con fotos"** abre una página con la foto, el nombre y el precio de todas las piezas juntas, más el total. Si ya marcaste alguna como vendida, igual aparece ahí con la etiqueta "Vendido", así sabés qué te pidieron.
 
-El pago y el envío se coordinan por el chat. **Cuando se concrete la venta, acordate de marcar el producto como Vendido** (paso 3), así nadie más lo pide.
+El pago y la entrega (envío o retiro) se coordinan por el chat. **Cuando se concrete la venta, acordate de marcar el producto como Vendido** (paso 3), así nadie más lo pide.

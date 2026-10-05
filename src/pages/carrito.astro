@@ -34,7 +34,7 @@ const site = await getSite();
         <ul class="items" role="list" data-items></ul>
         <div class="total">
           <p><span>Total de productos</span> <strong data-total></strong></p>
-          <p class="muted nota">El costo de envío (si corresponde) lo coordinamos por WhatsApp.</p>
+          <p class="muted nota">La entrega queda a coordinar con el vendedor por WhatsApp.</p>
         </div>
       </section>
 
@@ -45,19 +45,6 @@ const site = await getSite();
             <label for="nombre">Nombre</label>
             <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="nombre-error" />
             <p class="error" id="nombre-error" data-error-for="nombre" hidden></p>
-          </div>
-
-          <fieldset class="field" aria-describedby="entrega-error">
-            <legend>Forma de entrega</legend>
-            <label class="radio"><input type="radio" name="entrega" value="envio" required /> Envío en Mercedes</label>
-            <label class="radio"><input type="radio" name="entrega" value="retiro" /> Retiro en Mercedes</label>
-            <p class="error" id="entrega-error" data-error-for="entrega" hidden></p>
-          </fieldset>
-
-          <div class="field" data-direccion hidden>
-            <label for="direccion">Dirección</label>
-            <input id="direccion" name="direccion" type="text" autocomplete="street-address" aria-describedby="direccion-error" />
-            <p class="error" id="direccion-error" data-error-for="direccion" hidden></p>
           </div>
 
           <div class="field">
@@ -79,7 +66,7 @@ const site = await getSite();
 
 <script>
   import { hidratar, quitar, vaciar, onCambio, avisar, type ItemIndice } from '../lib/cart';
-  import { createWhatsappProvider, type Order, type FormaEntrega } from '../lib/checkout';
+  import { createWhatsappProvider, type Order } from '../lib/checkout';
   import { formatPrecio } from '../lib/format';
   import { url as rutaInterna } from '../lib/url';
 
@@ -149,56 +136,27 @@ const site = await getSite();
 
   /* ---------- Formulario ---------- */
   const form = $<HTMLFormElement>('[data-form]');
-  const direccionField = $('[data-direccion]');
-  const direccionInput = $<HTMLInputElement>('#direccion');
+  const nombreInput = $<HTMLInputElement>('#nombre');
+  const nombreError = $('[data-error-for="nombre"]');
 
-  const entrega = (): FormaEntrega | null =>
-    (form.querySelector<HTMLInputElement>('input[name="entrega"]:checked')?.value as FormaEntrega) ?? null;
-
-  form.addEventListener('change', (e) => {
-    if ((e.target as HTMLInputElement).name === 'entrega') {
-      const esEnvio = entrega() === 'envio';
-      direccionField.hidden = !esEnvio;
-      direccionInput.required = esEnvio;
-      setError('entrega', '');
-      if (!esEnvio) setError('direccion', '');
-    }
-  });
-  form.addEventListener('input', (e) => {
-    const t = e.target as HTMLInputElement;
-    if (t.name === 'nombre' || t.name === 'direccion') setError(t.name, '');
-  });
-
-  function setError(campo: string, mensaje: string) {
-    const p = root.querySelector<HTMLElement>(`[data-error-for="${campo}"]`)!;
-    p.textContent = mensaje;
-    p.hidden = !mensaje;
-    const controles = campo === 'entrega'
-      ? form.querySelectorAll<HTMLInputElement>('input[name="entrega"]')
-      : [form.querySelector<HTMLInputElement>(`[name="${campo}"]`)!];
-    controles.forEach((c) => c.toggleAttribute('aria-invalid', Boolean(mensaje)));
+  function setErrorNombre(mensaje: string) {
+    nombreError.textContent = mensaje;
+    nombreError.hidden = !mensaje;
+    nombreInput.toggleAttribute('aria-invalid', Boolean(mensaje));
   }
+  nombreInput.addEventListener('input', () => setErrorNombre(''));
 
   function validar(): Order['cliente'] | null {
     const datos = new FormData(form);
     const nombre = String(datos.get('nombre') ?? '').trim();
-    const forma = entrega();
-    const direccion = String(datos.get('direccion') ?? '').trim();
     const comentario = String(datos.get('comentario') ?? '').trim();
-
-    const errores: [string, string][] = [];
-    if (!nombre) errores.push(['nombre', 'Escribí tu nombre.']);
-    if (!forma) errores.push(['entrega', 'Elegí si querés envío o retiro.']);
-    if (forma === 'envio' && !direccion) errores.push(['direccion', 'Escribí la dirección para el envío.']);
-
-    ['nombre', 'entrega', 'direccion'].forEach((c) => setError(c, ''));
-    errores.forEach(([c, m]) => setError(c, m));
-    if (errores.length) {
-      const primero = errores[0][0];
-      form.querySelector<HTMLElement>(primero === 'entrega' ? 'input[name="entrega"]' : `[name="${primero}"]`)?.focus();
+    if (!nombre) {
+      setErrorNombre('Escribí tu nombre.');
+      nombreInput.focus();
       return null;
     }
-    return { nombre, entrega: forma!, direccion: forma === 'envio' ? direccion : undefined, comentario: comentario || undefined };
+    setErrorNombre('');
+    return { nombre, comentario: comentario || undefined };
   }
 
   form.addEventListener('submit', async (e) => {
@@ -252,7 +210,6 @@ const site = await getSite();
     form.reset();
     form.hidden = false;
     $('[data-listo]').hidden = true;
-    direccionField.hidden = true;
   });
 
   cargar();
@@ -312,9 +269,8 @@ const site = await getSite();
 
   .checkout { display: grid; gap: var(--space-6); align-content: start; }
   form { display: grid; gap: var(--space-6); }
-  .field { display: grid; gap: var(--space-2); border: 0; padding: 0; }
-  label, legend { font-weight: 600; }
-  legend { margin-bottom: var(--space-2); padding: 0; }
+  .field { display: grid; gap: var(--space-2); }
+  label { font-weight: 600; }
   input[type='text'], textarea {
     width: 100%;
     min-height: var(--tap);
@@ -325,8 +281,6 @@ const site = await getSite();
   }
   textarea { resize: vertical; }
   input[aria-invalid], textarea[aria-invalid] { border-color: #b3261e; }
-  .radio { display: flex; align-items: center; gap: var(--space-3); min-height: var(--tap); font-weight: 400; cursor: pointer; }
-  .radio input { width: 20px; height: 20px; accent-color: var(--color-text); margin: 0; }
   .error { color: #b3261e; font-size: var(--fs-meta); font-weight: 600; }
   .listo { display: grid; gap: var(--space-4); justify-items: start; padding: var(--space-6); background: var(--color-surface); border-radius: var(--radius); }
 

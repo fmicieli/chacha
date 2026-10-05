@@ -1,9 +1,5 @@
-export type FormaEntrega = 'envio' | 'retiro';
-
-export const FORMAS_ENTREGA: Record<FormaEntrega, string> = {
-  envio: 'Envío en Mercedes',
-  retiro: 'Retiro en Mercedes',
-};
+/** El cliente no elige forma de entrega: envío o retiro se coordina por WhatsApp. */
+export const ENTREGA = 'A coordinar con el vendedor';
 
 export interface OrderItem {
   slug: string;
@@ -20,8 +16,6 @@ export interface Order {
   resumenUrl?: string;
   cliente: {
     nombre: string;
-    entrega: FormaEntrega;
-    direccion?: string;
     comentario?: string;
   };
 }

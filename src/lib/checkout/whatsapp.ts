@@ -1,5 +1,5 @@
 import { formatPrecio } from '../format';
-import { FORMAS_ENTREGA, type CheckoutProvider, type Order } from './types';
+import { ENTREGA, type CheckoutProvider, type Order } from './types';
 
 // En el texto plano de WhatsApp usamos espacio común en vez del espacio duro de Intl.
 const precio = (n: number) => formatPrecio(n).replace(/ /g, ' ');
@@ -20,8 +20,7 @@ export function mensajeDePedido(order: Order): string {
     '',
   ];
   if (order.resumenUrl) lineas.push('📷 Ver pedido con fotos:', order.resumenUrl, '');
-  lineas.push(`Nombre: ${cliente.nombre}`, `Entrega: ${FORMAS_ENTREGA[cliente.entrega]}`);
-  if (cliente.entrega === 'envio' && cliente.direccion?.trim()) lineas.push(`Dirección: ${cliente.direccion.trim()}`);
+  lineas.push(`Nombre: ${cliente.nombre}`, `Entrega: ${ENTREGA}`);
   if (cliente.comentario?.trim()) lineas.push(`Comentario: ${cliente.comentario.trim()}`);
   return lineas.join('\n');
 }
